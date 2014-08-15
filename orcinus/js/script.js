@@ -44,11 +44,11 @@ $(document).ready(function(){
 	    		count++;
 	    	}
 	    	else if(count == 1){
-	    		var com = document.getElementsByName("command")[0].value.replace("\"", "");
-	    		var regex = /(\w+)(\s*)=(\s*)object.new\(\)/;
+	    		var com = document.getElementsByName("command")[0].value;
+	    		var regex = /(\w+)(\s*)=(\s*)object.new\(\"(\w+)\"\)/;
 	    		if(com.match(regex)){
 	    			var str = regex.exec(com);
-	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. </div>");
+	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. Image picked is from " + str[4] + "</div>");
 	    			count++;
 	    		}
 	    		else{
