@@ -35,14 +35,25 @@ $(document).ready(function(){
 		console.log("Called");
 	    if (event.which == 13) {
 	    	event.preventDefault();
+	    	var name = document.getElementsByName("command")[0].value.replace("\"", "");
 	    	$('#arrow').replaceWith("<div id = \"arrow\"> >></div>");
-	    	$('.terminal').append("<span>" + document.getElementsByName("command")[0].value.replace("\"", "") + "</span><br/>");
+	    	$('.terminal').append("<span>" + name + "</span><br/>");
 	    	if(count == 0){
-	    		$('.terminal').append("<div class = \"terminal-text\">Hello, " + document.getElementsByName("command")[0].value.replace("\"", "") + ". In this game, we want to move our character from the starting point to finish line. We start with creating the character first. Type <b>var = object.new()</b> in the terminal. Put the URL surrounded by \"\" of the sprite that you want to use inside the bracket.</div>");
+	    		$('.terminal').append("<div class = \"terminal-text\">Hello, " + name + ". In this game, we want to move our character from the starting point to finish line. We start with creating the character first. Type <b>var = object.new()</b> in the terminal. Put the URL of the sprite that you want to use inside the bracket, surrounded by \"\".</div>");
+	    		$('#player').append(name);
 	    		count++;
 	    	}
 	    	else if(count == 1){
-	    		$('.terminal').append("Hey");
+	    		var com = document.getElementsByName("command")[0].value.replace("\"", "");
+	    		var regex = /(\w+)(\s*)=(\s*)object.new\(\)/;
+	    		if(com.match(regex)){
+	    			var str = regex.exec(com);
+	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. </div>");
+	    			count++;
+	    		}
+	    		else{
+	    			$('.terminal').append("<div class = \"error-text\">Syntax Error. Did you create an actual object?</div>");
+	    		}
 	    	}
 	    	$('.command').remove();
 	        $('.terminal').append("<div id = \"arrow\"> >>&nbsp;</div><input class = \"command\" type = \"text\" name = \"command\" autofocus=\"autofocus\"/>");

@@ -86,6 +86,9 @@ body{
 .terminal-text{
 	color: #858a90;
 }
+.error-text{
+	color: crimson;
+}
 #player{
 	font-size: 20px;
 }
