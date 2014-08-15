@@ -7,8 +7,10 @@ $(document).ready(function(){
     canvas.style.height = canvas.height.toString() + "px";
     var bgImage = new Image();
     var stImage = new Image();
+    var finImage = new Image();
     var boarImage = new Image();
     bgImage.src = "http://gamesloveres.com/wp-content/uploads/2014/04/minecraft-hd-grass-block-textureviewing-gallery-for-minecraft-grass-block-texture-pack-gamesloveres-jbihbn31.png";
+    finImage.src = "http://www.clker.com/cliparts/u/J/w/w/T/H/checkered-flag.svg"
     stImage.src = "img/Rock.png";
     boarImage.src = "img/boar.png"
     window.onload = function() {
@@ -29,13 +31,14 @@ $(document).ready(function(){
 		ctx.drawImage(stImage, 8 * canvas.width / 20, 4 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 	    ctx.drawImage(stImage, 12 * canvas.width / 20, 2 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 	    ctx.drawImage(boarImage, 0 * canvas.width / 20, 0 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
+	    ctx.drawImage(finImage, 19 * canvas.width / 20, 9 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
     };
     var count = 0;
 	$('body').on('keydown', '.command', function (event) {
 		console.log("Called");
 	    if (event.which == 13) {
 	    	event.preventDefault();
-	    	var name = document.getElementsByName("command")[0].value.replace("\"", "");
+	    	var name = document.getElementsByName("command")[0].value;
 	    	$('#arrow').replaceWith("<div id = \"arrow\"> >></div>");
 	    	$('.terminal').append("<span>" + name + "</span><br/>");
 	    	if(count == 0){
