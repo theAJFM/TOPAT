@@ -30,4 +30,22 @@ $(document).ready(function(){
 	    ctx.drawImage(stImage, 12 * canvas.width / 20, 2 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 	    ctx.drawImage(boarImage, 0 * canvas.width / 20, 0 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
     };
+    var count = 0;
+	$('body').on('keydown', '.command', function (event) {
+		console.log("Called");
+	    if (event.which == 13) {
+	    	event.preventDefault();
+	    	$('#arrow').replaceWith("<div id = \"arrow\"> >></div>");
+	    	$('.terminal').append("<span>" + document.getElementsByName("command")[0].value.replace("\"", "") + "</span><br/>");
+	    	if(count == 0){
+	    		$('.terminal').append("<div class = \"terminal-text\">Hello, " + document.getElementsByName("command")[0].value.replace("\"", "") + ". In this game, we want to move our character from the starting point to finish line. We start with creating the character first. Type <b>var = object.new()</b> in the terminal. Put the URL surrounded by \"\" of the sprite that you want to use inside the bracket.</div>");
+	    		count++;
+	    	}
+	    	else if(count == 1){
+	    		$('.terminal').append("Hey");
+	    	}
+	    	$('.command').remove();
+	        $('.terminal').append("<div id = \"arrow\"> >>&nbsp;</div><input class = \"command\" type = \"text\" name = \"command\" autofocus=\"autofocus\"/>");
+	    }
+	});
 });

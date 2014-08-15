@@ -66,4 +66,26 @@ body{
 .btn-primary:hover{
 	background: #37ac6d;
 	border: 0;
-};
+}
+.terminal{
+	background-color: #272822;
+	color: #F8F8F2;
+	font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+	font-size: 16px;
+	overflow: auto;
+}
+#arrow{
+	display: inline;
+}
+.command{
+	width: 90%;
+	border: none;
+	outline: none;
+	background-color: #272822;
+}
+.terminal-text{
+	color: #858a90;
+}
+#player{
+	font-size: 20px;
+}
