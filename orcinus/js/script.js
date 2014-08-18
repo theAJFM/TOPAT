@@ -8,32 +8,37 @@ $(document).ready(function(){
     var bgImage = new Image();
     var stImage = new Image();
     var finImage = new Image();
-    var boarImage = new Image();
-    bgImage.src = "http://gamesloveres.com/wp-content/uploads/2014/04/minecraft-hd-grass-block-textureviewing-gallery-for-minecraft-grass-block-texture-pack-gamesloveres-jbihbn31.png";
+    var charImage = new Image();
+    var targetX = 0;
+    var targetY = 0;
+    var count = 0;
+    var varName;
     finImage.src = "http://www.clker.com/cliparts/u/J/w/w/T/H/checkered-flag.svg"
     stImage.src = "img/Rock.png";
-    boarImage.src = "img/boar.png"
     window.onload = function() {
     	console.log("background");
-    	ctx.drawImage(bgImage, 0, 0, bgImage.width/1.5, bgImage.height/1.5);
-	    for (var x = 0.5; x < canvas.width; x += canvas.width / 20) {
-		  ctx.moveTo(x, 0);
-		  ctx.lineTo(x, canvas.height);
-		}
-
-		for (var y = 0.5; y < canvas.height; y += canvas.height / 10) {
-		  ctx.moveTo(0, y);
-		  ctx.lineTo(canvas.width, y);
-		}
-
+    	$('#desc canvas').css('background-size', canvas.style.width + " " + canvas.style.height);
+    	drawGrid(ctx);
 		ctx.strokeStyle = "#fff";
 		ctx.stroke();
 		ctx.drawImage(stImage, 8 * canvas.width / 20, 4 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 	    ctx.drawImage(stImage, 12 * canvas.width / 20, 2 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
-	    ctx.drawImage(boarImage, 0 * canvas.width / 20, 0 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 	    ctx.drawImage(finImage, 19 * canvas.width / 20, 9 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
     };
-    var count = 0;
+    drawGrid = function(context){
+    	console.log("drawgrid");
+    	context.beginPath(); 
+	    for (var x = 0.5; x < canvas.width; x += canvas.width / 20) {
+		  	context.moveTo(x, 0);
+		  	context.lineTo(x, canvas.height);
+		}
+
+		for (var y = 0.5; y < canvas.height; y += canvas.height / 10) {
+		  context.moveTo(0, y);
+		  context.lineTo(canvas.width, y);
+		}
+		context.closePath();
+    }
 	$('body').on('keydown', '.command', function (event) {
 		console.log("Called");
 	    if (event.which == 13) {
@@ -48,11 +53,39 @@ $(document).ready(function(){
 	    	}
 	    	else if(count == 1){
 	    		var com = document.getElementsByName("command")[0].value;
-	    		var regex = /(\w+)(\s*)=(\s*)object.new\(\"(\w+)\"\)/;
+	    		var regex = /(\w+)(\s*)=(\s*)object.new\(\"(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\"\)/;
+	    		if(com.match(regex)){
+	    			console.log(regex)
+	    			var str = regex.exec(com);
+	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. Image is taken from " + str[5] + "." + str[6] + "</div>");
+	    			charImage.src = str[4] + str[5] + "." + str[6] + str[7]
+	    			charImage.onload = function(){
+	    				ctx.drawImage(charImage, targetX * canvas.width / 20, targetY * canvas.height / 10, canvas.width / 20, canvas.height / 10);
+	    			}
+	    			varName = str[1];
+	    			count++;
+	    		}
+	    		else{
+	    			$('.terminal').append("<div class = \"error-text\">Syntax Error. Did you create an actual object?</div>");
+	    		}
+	    	}
+	    	else{
+	    		var com = document.getElementsByName("command")[0].value;
+	    		var regex = new RegExp(varName + "(\\s*)\.(\\s*)move(\\s*)\\((\\s*)(\\d+)(\\s*)\,(\\s*)(\\d+)(\\s*)\\)");
+	    		console.log(regex);
+	    		console.log(com);
 	    		if(com.match(regex)){
 	    			var str = regex.exec(com);
-	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. Image picked is from " + str[4] + "</div>");
-	    			count++;
+	    			//window.onload = function(){
+	    				console.log("canvas")
+			    		ctx.save();
+			    		ctx.clearRect(targetX * canvas.width/20 , targetY * canvas.height/10,canvas.width / 20,canvas.height/10);
+			    		targetX = str[5];
+	    				targetY = str[8];
+			    		ctx.drawImage(charImage, targetX * canvas.width / 20, targetY * canvas.height / 10, canvas.width / 20, canvas.height / 10);
+			    		ctx.restore();
+	    			//}
+	    				drawGrid(ctx);
 	    		}
 	    		else{
 	    			$('.terminal').append("<div class = \"error-text\">Syntax Error. Did you create an actual object?</div>");

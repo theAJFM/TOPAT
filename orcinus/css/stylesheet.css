@@ -92,3 +92,11 @@ body{
 #player{
 	font-size: 20px;
 }
+#position{
+	font-size: 20px;
+	float: right;
+}
+#desc canvas{
+    background: url(http://gamesloveres.com/wp-content/uploads/2014/04/minecraft-hd-grass-block-textureviewing-gallery-for-minecraft-grass-block-texture-pack-gamesloveres-jbihbn31.png);
+    background-repeat: no-repeat;
+}
