@@ -5,6 +5,10 @@ $(document).ready(function(){
     canvas.height = window.innerHeight * 0.4 - ((window.innerHeight * 0.4)%10);
     canvas.style.width  = canvas.width.toString() + "px";
     canvas.style.height = canvas.height.toString() + "px";
+    var character = {
+    	x: 0,
+    	y: 0
+    }
     var bgImage = new Image();
     var stImage = new Image();
     var finImage = new Image();
@@ -19,8 +23,6 @@ $(document).ready(function(){
     	console.log("background");
     	$('#desc canvas').css('background-size', canvas.style.width + " " + canvas.style.height);
     	drawGrid(ctx);
-		ctx.strokeStyle = "#fff";
-		ctx.stroke();
 		ctx.drawImage(stImage, 8 * canvas.width / 20, 4 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 	    ctx.drawImage(stImage, 12 * canvas.width / 20, 2 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 	    ctx.drawImage(finImage, 19 * canvas.width / 20, 9 * canvas.height / 10, canvas.width / 20, canvas.height / 10);
@@ -37,6 +39,8 @@ $(document).ready(function(){
 		  context.moveTo(0, y);
 		  context.lineTo(canvas.width, y);
 		}
+		context.strokeStyle = "#fff";
+		context.stroke();
 		context.closePath();
     }
 	$('body').on('keydown', '.command', function (event) {
@@ -71,7 +75,7 @@ $(document).ready(function(){
 	    	}
 	    	else{
 	    		var com = document.getElementsByName("command")[0].value;
-	    		var regex = new RegExp(varName + "(\\s*)\.(\\s*)move(\\s*)\\((\\s*)(\\d+)(\\s*)\,(\\s*)(\\d+)(\\s*)\\)");
+	    		var regex = new RegExp(varName + "(\\s*)\.(\\s*)move(\\s*)\\((\\s*)(-|)(\\d+)(\\s*)\,(\\s*)(-|)(\\d+)(\\s*)\\)");
 	    		console.log(regex);
 	    		console.log(com);
 	    		if(com.match(regex)){
@@ -79,13 +83,16 @@ $(document).ready(function(){
 	    			//window.onload = function(){
 	    				console.log("canvas")
 			    		ctx.save();
-			    		ctx.clearRect(targetX * canvas.width/20 , targetY * canvas.height/10,canvas.width / 20,canvas.height/10);
-			    		targetX = str[5];
-	    				targetY = str[8];
-			    		ctx.drawImage(charImage, targetX * canvas.width / 20, targetY * canvas.height / 10, canvas.width / 20, canvas.height / 10);
+			    		ctx.clearRect(character.x * canvas.width/20 , character.y * canvas.height/10,canvas.width / 20,canvas.height/10);
+			    		targetX = str[5] + str[6];
+	    				targetY = str[9] + str[10];
+	    				character.x += parseInt(targetX);
+	    				character.y += parseInt(targetY);
+			    		ctx.drawImage(charImage, character.x * canvas.width / 20, character.y * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 			    		ctx.restore();
 	    			//}
 	    				drawGrid(ctx);
+	    				$('#position').html("Position: (" + character.x + ", " + character.y + ")");
 	    		}
 	    		else{
 	    			$('.terminal').append("<div class = \"error-text\">Syntax Error. Did you create an actual object?</div>");
