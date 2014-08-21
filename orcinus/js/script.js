@@ -61,7 +61,7 @@ $(document).ready(function(){
 	    		if(com.match(regex)){
 	    			console.log(regex)
 	    			var str = regex.exec(com);
-	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. Image is taken from " + str[5] + "." + str[6] + "</div>");
+	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. Image is taken from " + str[5] + "." + str[6] + "<br/>Now let's make the object move. Use the move method that takes 2 parameters, x and y value. Type the (name of variable).move(1,2) and see the object teleport.</div>");
 	    			charImage.src = str[4] + str[5] + "." + str[6] + str[7]
 	    			charImage.onload = function(){
 	    				ctx.drawImage(charImage, targetX * canvas.width / 20, targetY * canvas.height / 10, canvas.width / 20, canvas.height / 10);
