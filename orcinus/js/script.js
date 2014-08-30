@@ -13,12 +13,14 @@ $(document).ready(function(){
     var stImage = new Image();
     var finImage = new Image();
     var charImage = new Image();
+    var splatImage = new Image();
     var targetX = 0;
     var targetY = 0;
     var count = 0;
     var varName;
     finImage.src = "http://www.clker.com/cliparts/u/J/w/w/T/H/checkered-flag.svg"
     stImage.src = "img/Rock.png";
+    splatImage.src = "img/blood.png"
     window.onload = function() {
     	console.log("background");
     	$('#desc canvas').css('background-size', canvas.style.width + " " + canvas.style.height);
@@ -61,7 +63,7 @@ $(document).ready(function(){
 	    		if(com.match(regex)){
 	    			console.log(regex)
 	    			var str = regex.exec(com);
-	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. Image is taken from " + str[5] + "." + str[6] + "<br/>Now let's make the object move. Use the move method that takes 2 parameters, x and y value. Type the (name of variable).move(1,2) and see the object teleport.</div>");
+	    			$('.terminal').append("<div class = \"terminal-text\">Object named " + str[1] + " created. Image is taken from " + str[5] + "." + str[6] + "<br/>Now let's make the object move. Type (name of variable).move(x,y) and see the object teleport. Move the object to the finish line, and avoid the stones.</div>");
 	    			charImage.src = str[4] + str[5] + "." + str[6] + str[7]
 	    			charImage.onload = function(){
 	    				ctx.drawImage(charImage, targetX * canvas.width / 20, targetY * canvas.height / 10, canvas.width / 20, canvas.height / 10);
@@ -73,7 +75,7 @@ $(document).ready(function(){
 	    			$('.terminal').append("<div class = \"error-text\">Syntax Error. Did you create an actual object?</div>");
 	    		}
 	    	}
-	    	else{
+	    	else if(count == 2){
 	    		var com = document.getElementsByName("command")[0].value;
 	    		var regex = new RegExp(varName + "(\\s*)\.(\\s*)move(\\s*)\\((\\s*)(-|)(\\d+)(\\s*)\,(\\s*)(-|)(\\d+)(\\s*)\\)");
 	    		console.log(regex);
@@ -88,15 +90,36 @@ $(document).ready(function(){
 	    				targetY = str[9] + str[10];
 	    				character.x += parseInt(targetX);
 	    				character.y += parseInt(targetY);
-			    		ctx.drawImage(charImage, character.x * canvas.width / 20, character.y * canvas.height / 10, canvas.width / 20, canvas.height / 10);
+	    				if((character.x == 12 && character.y == 2) || (character.x == 8 && character.y == 4)){
+	    					ctx.clearRect(character.x * canvas.width/20 , character.y * canvas.height/10,canvas.width / 20,canvas.height/10);
+	    					ctx.drawImage(splatImage, character.x * canvas.width / 20, character.y * canvas.height / 10, canvas.width / 16, canvas.height / 6);
+	    					ctx.drawImage(stImage, character.x * canvas.width / 20, character.y * canvas.height / 10, canvas.width / 20, canvas.height / 10);
+	    					drawGrid(ctx);
+	    					alert("You're squished by the rock. Game over!");
+	    					count++;
+	    					$('.terminal').append("<div class = \"error-text\">GAME OVER.</div>");
+	    				}
+	    				else if(character.x == 19 && character.y == 9){
+	    					ctx.clearRect(character.x * canvas.width/20 , character.y * canvas.height/10,canvas.width / 20,canvas.height/10);
+	    					ctx.drawImage(charImage, character.x * canvas.width / 20, character.y * canvas.height / 10, canvas.width / 20, canvas.height / 10);
+	    					drawGrid(ctx);
+	    					alert("You've reached the destination. You won!!");
+	    					count++;
+	    				}
+	    				else{
+			    			ctx.drawImage(charImage, character.x * canvas.width / 20, character.y * canvas.height / 10, canvas.width / 20, canvas.height / 10);
+			    			drawGrid(ctx);
+			    		}
 			    		ctx.restore();
-	    			//}
-	    				drawGrid(ctx);
+	    			//}	
 	    				$('#position').html("Position: (" + character.x + ", " + character.y + ")");
 	    		}
 	    		else{
 	    			$('.terminal').append("<div class = \"error-text\">Syntax Error. Did you create an actual object?</div>");
 	    		}
+	    	}
+	    	else{
+	    		$('.terminal').append("<div class = \"error-text\">GAME OVER. To restart playing, please reload the page.</div>");
 	    	}
 	    	$('.command').remove();
 	        $('.terminal').append("<div id = \"arrow\"> >>&nbsp;</div><input class = \"command\" type = \"text\" name = \"command\" autofocus=\"autofocus\"/>");
