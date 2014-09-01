@@ -95,7 +95,7 @@ $(document).ready(function(){
 	    					ctx.drawImage(splatImage, character.x * canvas.width / 20, character.y * canvas.height / 10, canvas.width / 16, canvas.height / 6);
 	    					ctx.drawImage(stImage, character.x * canvas.width / 20, character.y * canvas.height / 10, canvas.width / 20, canvas.height / 10);
 	    					drawGrid(ctx);
-	    					alert("You're squished by the rock. Game over!");
+	    					alert("You got squished by a rock. Game over!");
 	    					count++;
 	    					$('.terminal').append("<div class = \"error-text\">GAME OVER.</div>");
 	    				}
