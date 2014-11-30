@@ -160,3 +160,41 @@ ul.nav-tabs li:last-child a {
 .c1 {
 	color: #999;
 }
+#wrapper{
+	float: none;
+	position: relative;
+	margin: 0 auto;
+	height:auto;
+	min-height: 10em;
+}
+
+#hitarea{
+	background: #fff;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 150px;
+	height: 150px;
+	cursor: pointer;
+	margin: 0 auto;
+}
+
+@media only screen and (max-width: 1920px){
+    #wrapper {
+    	background-color: #252525;
+    	height: 20em;
+    }
+}
+@media only screen and (max-width: 1024px){
+    #wrapper {
+    	background-color: #252525;
+    	height: 15em;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    #wrapper {
+    	background-color: red;
+    	height: 10em;
+    }
+}

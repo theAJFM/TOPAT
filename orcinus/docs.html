@@ -39,37 +39,32 @@
                 </div>
                 <div class = "content">
                     <p>Orcinus is a language to create and play maze based games, aimed to teach people how to code. The syntax is mostly inspired by Ruby and Python, the code is interpreted and read line by line, and built upon JavaScript.</p> 
-                    <p>Here are some key characteristics of Orcinus: 
-                        <ul>
-                            <li>The language also uses type inferences, meaning that on declaration the type of the variable need not to be explicitly declared before the variable name.
-                                <div class = "highlight">
-                                    <p><code>a = 3</code></p>
-                                    <p><code>b = "foo"</code></p>
-                                </div>
-                            </li>
-                            <li>The language is, however, strongly typed in a sense that there is a restriction when two values of different types are intermingled.
-                                <div class = "highlight">
-                                    <p><code class = "js">a = 3 + "sds" <span class = "c1">// This won't compile...</span></code></p>
-                                </div>
-                            </li>
-                        </ul>
-                    </p>
                 </div><br/>
             </div>
             <div id = "objects" class = "docs-menu">
                 <h2>Objects</h2><hr/>
                 <div class = "content">
-                    The building block of Orcinus-generated games is object. Object could range from game assets to variables. These can be used to modify the appearance of the game and how the game is played.
+                    <p>
+                    The building block of Orcinus-generated games is object. Object could range from game assets to variables. These can be used to modify the appearance of the game and how the game is played. In general, here are types of objects that you can use in this language.
+                    </p>
+                    <h3>Variables</h3>
+                    <p>In general Orcinus variables can be classified into 2 groups, numeric and string</p>
+                    <div class = "highlight">
+                        <p><code>a = 312<span class = "c1"> // Numeric variable</span></code></p>
+                        <p><code>b = "test"<span class = "c1"> // String variable</span></code></p>
+                    </div>
+                    <p>Orcinus uses type inference, meaning that on declaration the type of the variable need not to be explicitly declared before the variable name. As a comparison, let's put the code of Java and Orcinus side by side to see the difference.</p>
+                    <div class = "highlight">
+                        <p><code>int a = 3<span class = "c1"> // Java's way</span></code></p>
+                        <p><code>a = 3<span class = "c1"> // Orcinus' way</span></code></p>
+                    </div>
                 </div><br/>
             </div>
             <div id = "game-settings" class = "docs-menu">
                 <h2>Game Settings</h2><hr/>
                 <div class = "content">
-                    Imagine a game board that figuratively describes the properties orcinus' game frame. 
+                    Imagine a game board that figuratively describes the properties orcinus' game frame. The game itsel
                 </div><br/>
-                <div class = "alert alert-warning">
-                    Disclaimer: I made this as a final project for my compiler class. It is not entirely reliable or robust per se to create games with this language.
-                </div>
             </div>
             <div id = "operators" class = "docs-menu">
                 <h2>Operators</h2><hr/>
