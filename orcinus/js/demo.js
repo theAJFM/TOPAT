@@ -2,9 +2,18 @@ $(document).ready(function(){
 	
 	var hitarea = document.getElementById("wrapper");
     var gestureControl = Hammer(hitarea);
-    gestureControl.set
+    gestureControl.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
     gestureControl.on("swipeleft", function(event) {
-        alert('swipeleft');
+        $('.icon-list').append("<span>Left</span>");
+    });
+    gestureControl.on("swiperight", function(event) {
+        $('.icon-list').append("<span>Right</span>");
+    });
+    gestureControl.on("swipeup", function(event) {
+        $('.icon-list').append("<span>Up</span>");
+    });
+    gestureControl.on("swipedown", function(event) {
+        $('.icon-list').append("<span>Down</span>");
     });
 
 
@@ -58,5 +67,16 @@ $(document).ready(function(){
 		context.stroke();
 		context.closePath();
     }
+    $("#showlist").click(function(){
+        $(".menu-wrap").animate({
+            left: "+=300",
+        }, 400);
+    });
+
+    $("#closelist").click(function(){
+        $(".menu-wrap").animate({
+            left: "-=300",
+        }, 400);
+    });
 
 });
