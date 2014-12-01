@@ -1,55 +1,28 @@
 $(document).ready(function(){
-	
-	var hitarea = document.getElementById("wrapper");
-    var gestureControl = Hammer(hitarea);
-    gestureControl.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-    gestureControl.on("swipeleft", function(event) {
-        $('.icon-list').append("<span>Left</span>");
-    });
-    gestureControl.on("swiperight", function(event) {
-        $('.icon-list').append("<span>Right</span>");
-    });
-    gestureControl.on("swipeup", function(event) {
-        $('.icon-list').append("<span>Up</span>");
-    });
-    gestureControl.on("swipedown", function(event) {
-        $('.icon-list').append("<span>Down</span>");
-    });
-
-
 	var canvas = document.getElementById("gameFrame");
     var ctx = canvas.getContext("2d");
+    var x = 0;
+    var y = 0;
     canvas.width = document.getElementById("desc").offsetWidth * 0.5 - ((document.getElementById("desc").offsetWidth * 0.5)%8);
     canvas.height = window.innerHeight * 0.4 - ((window.innerHeight * 0.4)%8);
     canvas.style.width  = canvas.width.toString() + "px";
     canvas.style.height = canvas.height.toString() + "px";
     
-    var character = {
-    	x: 0,
-    	y: 0
-    }
     
     var bgImage = new Image();
-    var stImage = new Image();
-    var finImage = new Image();
-    var charImage = new Image();
-    var splatImage = new Image();
-    var targetX = 0;
-    var targetY = 0;
-    var count = 0;
-    var varName;
-    
-    finImage.src = "http://www.clker.com/cliparts/u/J/w/w/T/H/checkered-flag.svg"
-    stImage.src = "img/Rock.png";
-    splatImage.src = "img/blood.png"
-    
+    var upDir = new Image();
+    var downDir = new Image();
+    var leftDir = new Image();
+    var rightDir = new Image();
+    upDir.src = "img/up.png";
+    downDir.src = "img/down.png";
+    leftDir.src = "img/left.png";
+    rightDir.src = "img/right.png";
+
     window.onload = function() {
     	console.log("background");
     	$('#desc canvas').css('background-size', canvas.style.width + " " + canvas.style.height);
     	drawGrid(ctx);
-		ctx.drawImage(stImage, 8 * canvas.width / 8, 4 * canvas.height / 8, canvas.width / 8, canvas.height / 8);
-	    ctx.drawImage(stImage, 12 * canvas.width / 8, 2 * canvas.height / 8, canvas.width / 8, canvas.height / 8);
-	    ctx.drawImage(finImage, 19 * canvas.width / 8, 9 * canvas.height / 8, canvas.width / 8, canvas.height / 8);
     };
     drawGrid = function(context){
     	console.log("drawgrid");
@@ -79,4 +52,29 @@ $(document).ready(function(){
         }, 400);
     });
 
+    ctx.font = "1.5em Icomatic";
+
+    var hitarea = document.getElementById("wrapper");
+    var gestureControl = Hammer(hitarea);
+    gestureControl.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+    gestureControl.on("swipeleft", function(event) {
+        ctx.drawImage(leftDir, x * canvas.width / 8, y * canvas.height / 8, canvas.width / 8, canvas.height / 8);
+        x--;
+        $('.icon-list').append("<span>Left\t["+ x + "," + y +"]</span>");
+    });
+    gestureControl.on("swiperight", function(event) {
+        ctx.drawImage(rightDir, x * canvas.width / 8, y * canvas.height / 8, canvas.width / 8, canvas.height / 8);
+        x++;
+        $('.icon-list').append("<span>Right\t["+ x + "," + y +"]</span>");
+    });
+    gestureControl.on("swipeup", function(event) {
+        ctx.drawImage(upDir, x * canvas.width / 8, y * canvas.height / 8, canvas.width / 8, canvas.height / 8);
+        y--;
+        $('.icon-list').append("<span>Up\t["+ x + "," + y +"]</span>");
+    });
+    gestureControl.on("swipedown", function(event) {
+        ctx.drawImage(downDir, x * canvas.width / 8, y * canvas.height / 8, canvas.width / 8, canvas.height / 8);
+        y++;
+        $('.icon-list').append("<span>Down\t["+ x + "," + y +"]</span>");
+    });
 });
