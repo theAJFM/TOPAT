@@ -285,3 +285,25 @@ ul.nav-tabs li:last-child a {
 	border: none;
 	background: transparent;
 }
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+.gesture-input{
+	font-family: 'Icomatic';
+	text-decoration: none;
+	padding: 10px 19px;
+	font-size: 17px;
+	line-height: 1.471;
+	border-radius: 6px;
+	border-style: solid;
+	border-width: thin;
+	border-color: #FFF;
+	color: #FFF;
+	background-color: transparent;
+	vertical-align: middle;
+	cursor: pointer;
+	-moz-user-select: none;
+	background-image: none;
+}
