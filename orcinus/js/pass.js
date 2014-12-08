@@ -26,12 +26,12 @@ $(document).ready(function(){
         text+= "circleoutline";
         $("#test").val("" + text);
     });
-    gestureControl.on("pinchin", function(event) {
-        text+= "collapse";
+    gestureControl.on("pinchend", function(event) {
+        text+= "expand";
         $("#test").val("" + text);
     });
-    gestureControl.on("pinchout", function(event) {
-        text+= "expand";
+    gestureControl.on("rotateend", function(event) {
+        text+= "refresh";
         $("#test").val("" + text);
     });
 
