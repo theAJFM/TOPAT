@@ -3,6 +3,8 @@ $(document).ready(function(){
     var hitarea = document.getElementById("wrapper");
     var gestureControl = Hammer(hitarea);
     gestureControl.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+    gestureControl.get('pinch').set({ enable: true });
+    gestureControl.get('rotate').set({ enable: true });
     var text = "";
     gestureControl.on("swipeleft", function(event) {
         text+= "arrowleft";
