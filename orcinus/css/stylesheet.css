@@ -236,7 +236,6 @@ ul.nav-tabs li:last-child a {
 
 @media only screen and (max-width: 767px){
     #wrapper {
-    	background-color: red;
     	height: 10em;
     }
     .menu-wrap{
